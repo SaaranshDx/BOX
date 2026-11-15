@@ -25,3 +25,6 @@ build/
 
 # macOS
 .DS_Store
+
+tests/minecraft/
+test/minecraft/
