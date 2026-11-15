@@ -5,7 +5,7 @@ description = ""
 readme = "README.md"
 requires-python = ">=3.10"
 authors = [
-    { name = "Flet developer", email = "you@example.com" }
+    { name = "Saaransh_Xd", email = "Sillycat@mizucode.qzz.io" }
 ]
 dependencies = [
     "flet>=1.1.2"
@@ -27,7 +27,7 @@ testpaths = ["tests"]
 pythonpath = ["src"]
 
 [tool.flet]
-org = "com.mycompany"
+org = "com.mizucode"
 product = "box"
 company = "Flet"
 copyright = "Copyright (C) 2023-2026 by Flet"
@@ -40,4 +40,4 @@ copyright = "Copyright (C) 2023-2026 by Flet"
 # icon_background = "#ffffff"
 
 [tool.flet.app]
-path = "src"
+path = ""
