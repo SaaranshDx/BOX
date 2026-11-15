@@ -8,5 +8,5 @@ def get_application_path():
     if path.exists():
         return app_dir_path
     else:
-        Path(app_data_path).mkdir()
+        Path(app_dir_path).mkdir()
         return app_dir_path
