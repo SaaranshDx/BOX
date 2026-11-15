@@ -4,7 +4,7 @@ from pathlib import Path
 def get_application_path():
     app_data_path = os.environ.get('LOCALAPPDATA')
     app_dir_path = os.path.join(app_data_path, ".BOX")
-    path = Path("app_dir_path")
+    path = Path(app_dir_path)
     if path.exists():
         return app_data_path
     else:
