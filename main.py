@@ -82,6 +82,22 @@ def read_instance(name):
         print(f"Error reading instance '{name}': {e}")
         return None
 
+def list_instances():
+    try:
+        instances_dir = os.path.join(APP_DATA_PATH, "instances")
+        index_path = os.path.join(instances_dir, "index.json")
+
+        if not os.path.exists(index_path):
+            return []
+
+        with open(index_path, "r", encoding="utf-8") as file:
+            index_data = json.load(file)
+
+        return index_data
+    except Exception as e:
+        print(f"Error listing instances: {e}")
+        return []
+
 def write_instance_data(instance_data):
     try:
         instance_path = get_instance_path(instance_data["instance_name"])
