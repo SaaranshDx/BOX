@@ -6,6 +6,59 @@ import minecraft_launcher_lib
 
 APP_DATA_PATH = os.path.join(f"{Path(__file__).resolve().parent}", ".BOX")
 
+def get_launcher_data(key=None):
+    try:
+        data_path = os.path.join(APP_DATA_PATH, "data.json")
+        default_data = {
+            "selectedAccount": None,
+            "minRam": "1G",
+            "maxRam": "2G"
+        }
+
+        os.makedirs(APP_DATA_PATH, exist_ok=True)
+
+        if not os.path.exists(data_path):
+            with open(data_path, "w", encoding="utf-8") as file:
+                json.dump(default_data, file, indent=4)
+            data = default_data
+        else:
+            with open(data_path, "r", encoding="utf-8") as file:
+                data = json.load(file)
+
+        if key is not None:
+            return data.get(key)
+        return data
+
+    except Exception as e:
+        print(f"Error reading launcher data: {e}")
+        return None
+
+def set_launcher_data(key, value):
+    try:
+        data_path = os.path.join(APP_DATA_PATH, "data.json")
+        os.makedirs(APP_DATA_PATH, exist_ok=True)
+
+        if os.path.exists(data_path):
+            with open(data_path, "r", encoding="utf-8") as file:
+                data = json.load(file)
+        else:
+            data = {
+                "selectedAccount": None,
+                "minRam": "1G",
+                "maxRam": "2G"
+            }
+
+        data[key] = value
+
+        with open(data_path, "w", encoding="utf-8") as file:
+            json.dump(data, file, indent=4)
+
+        return True
+
+    except Exception as e:
+        print(f"Error updating launcher data ({key}={value}): {e}")
+        return False
+
 #only supportin offline rn ;-;
 def add_account(ign):
     try:
