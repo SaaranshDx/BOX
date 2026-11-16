@@ -28,6 +28,18 @@ def add_account(ign):
         print(f"Error adding account: {e}")
         return False
 
+def list_accounts():
+    try:
+        account_data_path = os.path.join(APP_DATA_PATH, "account.json")
+        if os.path.exists(account_data_path):
+            with open(account_data_path, "r", encoding="utf-8") as file:
+                accounts = json.load(file)
+        else:
+            accounts = []
+        return accounts
+    except Exception as e:
+        return False
+
 def get_instance_path(instance_name):
     instance_path = os.path.join(APP_DATA_PATH, "instances", instance_name)
     return instance_path
