@@ -6,6 +6,28 @@ import minecraft_launcher_lib
 
 APP_DATA_PATH = os.path.join(f"{Path(__file__).resolve().parent}", ".BOX")
 
+#only supportin offline rn ;-;
+def add_account(ign):
+    try:
+        account_data_path = os.path.join(APP_DATA_PATH, "account.json")
+
+        if os.path.exists(account_data_path):
+            with open(account_data_path, "r", encoding="utf-8") as file:
+                accounts = json.load(file)
+        else:
+            accounts = []
+
+        accounts.append(ign)
+
+        with open(account_data_path, "w", encoding="utf-8") as file:
+            json.dump(accounts, file, indent=4)
+
+        return True
+
+    except Exception as e:
+        print(f"Error adding account: {e}")
+        return False
+
 def get_instance_path(instance_name):
     instance_path = os.path.join(APP_DATA_PATH, "instances", instance_name)
     return instance_path
