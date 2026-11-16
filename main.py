@@ -50,14 +50,12 @@ def delete_account(ign):
         with open(account_data_path, "r", encoding="utf-8") as file:
             accounts = json.load(file)
 
-        # Check if the account exists in the list and remove it
         if ign in accounts:
             accounts.remove(ign)
             with open(account_data_path, "w", encoding="utf-8") as file:
                 json.dump(accounts, file, indent=4)
             return True
 
-        # Account was not found in the list
         return False
 
     except Exception as e:
@@ -91,16 +89,30 @@ def create_instance(loader_version, version, name, modloader):
             "loader_version": loader_version,
         }
 
-        Path(f"{os.path.join(f'{get_instance_path(name)}')}").mkdir(parents=True, exist_ok=True)
-
-        # writin da data :3
-        write_instance_data(instance_data)
-
         instance_path = get_instance_path(name)
+        Path(instance_path).mkdir(parents=True, exist_ok=True)
+
+        with open(os.path.join(instance_path, 'instance.json'), "w", encoding="utf-8") as file:
+            json.dump(instance_data, file, indent=4)
+
+        instances_dir = os.path.join(APP_DATA_PATH, "instances")
+        os.makedirs(instances_dir, exist_ok=True)
+        index_path = os.path.join(instances_dir, "index.json")
+
+        if os.path.exists(index_path):
+            with open(index_path, "r", encoding="utf-8") as file:
+                index_data = json.load(file)
+        else:
+            index_data = []
+
+        if name not in index_data:
+            index_data.append(name)
+
+        with open(index_path, "w", encoding="utf-8") as file:
+            json.dump(index_data, file, indent=4)
 
         if modloader != "none":
             loader = minecraft_launcher_lib.mod_loader.get_mod_loader(modloader)
-            # Install the mod loader for the selected Minecraft version
             loader.install(version, instance_path)
         else:
             minecraft_launcher_lib.install.install_minecraft_version(
