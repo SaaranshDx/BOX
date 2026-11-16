@@ -40,6 +40,30 @@ def list_accounts():
     except Exception as e:
         return False
 
+def delete_account(ign):
+    try:
+        account_data_path = os.path.join(APP_DATA_PATH, "account.json")
+
+        if not os.path.exists(account_data_path):
+            return False
+
+        with open(account_data_path, "r", encoding="utf-8") as file:
+            accounts = json.load(file)
+
+        # Check if the account exists in the list and remove it
+        if ign in accounts:
+            accounts.remove(ign)
+            with open(account_data_path, "w", encoding="utf-8") as file:
+                json.dump(accounts, file, indent=4)
+            return True
+
+        # Account was not found in the list
+        return False
+
+    except Exception as e:
+        print(f"Error deleting account: {e}")
+        return False
+
 def get_instance_path(instance_name):
     instance_path = os.path.join(APP_DATA_PATH, "instances", instance_name)
     return instance_path
