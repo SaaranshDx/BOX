@@ -28,3 +28,5 @@ build/
 
 tests/minecraft/
 test/minecraft/
+
+.BOX/
