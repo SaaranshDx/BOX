@@ -30,3 +30,5 @@ tests/minecraft/
 test/minecraft/
 
 .BOX/
+
+docs/readme.md
