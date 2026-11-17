@@ -157,7 +157,15 @@ def launch_game(instance_name):
         instance_game_version = instance_data["game_version"]
         options = get_launch_options(instance_path)
         instance_launch_command = minecraft_launcher_lib.command.get_minecraft_command(instance_game_version, instance_path, options)
-        subprocess.Popen(instance_launch_command, cwd=instance_path)
-        return {"success": True, "message": "minecraft launched successfully"}
+        process = subprocess.Popen(instance_launch_command, cwd=instance_path, stdout=subprocess.PIPE, stderr=subprocess.STDOUT, text=True, encoding="utf-8", errors="replace")
+
+        logs, _ = process.communicate()
+        exit_code = process.returncode
+        return {
+            "success": exit_code == 0,
+            "message": "Minecraft exited successfully" if exit_code == 0 else "Minecraft crashed or exited with an error",
+            "exit_code": exit_code,
+            "logs": logs
+        }
     except Exception as e:
         return {"success": False, "message": "oops! looks like the game just crashed"}
