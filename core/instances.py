@@ -39,21 +39,55 @@ def read_instance(name):
         }
 
 
-def list_instances():
+def _update_index():
+    """Scan instances directory and rebuild index with full metadata."""
     try:
         app_data_path = return_path()
         instances_dir = os.path.join(app_data_path, "instances")
         index_path = os.path.join(instances_dir, "index.json")
 
+        os.makedirs(instances_dir, exist_ok=True)
+
         if not os.path.exists(index_path):
-            return {
-                "success": True,
-                "instances": []
-            }
+            with open(index_path, "w", encoding="utf-8") as file:
+                json.dump({}, file, indent=4)
+            return {}
 
-        with open(index_path, "r", encoding="utf-8") as file:
-            index_data = json.load(file)
+        instance_dirs = [
+            d for d in os.listdir(instances_dir)
+            if os.path.isdir(os.path.join(instances_dir, d)) and d != "index.json"
+        ]
 
+        index_data = {}
+        for instance_name in instance_dirs:
+            instance_path = os.path.join(instances_dir, instance_name)
+            instance_json_path = os.path.join(instance_path, "instance.json")
+
+            if os.path.exists(instance_json_path):
+                with open(instance_json_path, "r", encoding="utf-8") as file:
+                    instance_data = json.load(file)
+                index_data[instance_name] = instance_data
+            else:
+                index_data[instance_name] = {
+                    "instance_name": instance_name,
+                    "game_version": "unknown",
+                    "loader": "unknown",
+                    "loader_version": 0
+                }
+
+        with open(index_path, "w", encoding="utf-8") as file:
+            json.dump(index_data, file, indent=4)
+
+        return index_data
+
+    except Exception as e:
+        print(f"Error updating index: {e}")
+        return {}
+
+
+def list_instances():
+    try:
+        index_data = _update_index()
         return {
             "success": True,
             "instances": index_data
@@ -63,7 +97,7 @@ def list_instances():
         print(f"Error listing instances: {e}")
         return {
             "success": False,
-            "instances": [],
+            "instances": {},
             "error": e
         }
 
@@ -132,10 +166,9 @@ def create_instance(loader_version, version, name, modloader):
             with open(index_path, "r", encoding="utf-8") as file:
                 index_data = json.load(file)
         else:
-            index_data = []
+            index_data = {}
 
-        if name not in index_data:
-            index_data.append(name)
+        index_data[name] = instance_data
 
         with open(index_path, "w", encoding="utf-8") as file:
             json.dump(index_data, file, indent=4)
