@@ -211,3 +211,13 @@ def create_instance(loader_version, version, name, modloader):
         return "This instance already exists!"
     except Exception as e:
         return f"An error occurred during installation: {e}"
+
+def select_account(ign):
+    try:
+        success = set_launcher_data("selectedAccount", ign)
+        if success:
+            return True
+        return False
+    except Exception as e:
+        print(f"Error selecting account '{ign}': {e}")
+        return False
