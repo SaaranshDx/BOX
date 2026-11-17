@@ -64,7 +64,9 @@ def set_launcher_data(key, value):
             data = {
                 "selectedAccount": None,
                 "minRam": "1G",
-                "maxRam": "2G"
+                "maxRam": "2G",
+                "resolutionWidth": "1280",
+                "resolutionHeight": "720"
             }
 
         data[key] = value
