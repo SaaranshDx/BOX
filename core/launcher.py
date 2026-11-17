@@ -2,7 +2,9 @@
 import os
 import json
 from path import return_path
-
+import minecraft_launcher_lib
+from instances import read_instance
+import subprocess
 
 def get_launcher_data(key=None):
     try:
@@ -83,3 +85,42 @@ def set_launcher_data(key, value):
             "message": "Failed to update launcher data",
             "error": e
         }
+
+def get_launch_options(instance_path, java_path=None):
+    options = minecraft_launcher_lib.utils.generate_test_options()
+
+    options.update({
+        # we'd add the fweakin launcher option overrides laterrr
+        "jvmArguments": [
+            "-Xms1G",
+            "-Xmx4G"
+        ],
+
+        "customResolution": True,
+        "resolutionWidth": "1280",
+        "resolutionHeight": "720",
+
+        "gameDirectory": instance_path,
+
+        # yeaw we keep en false ALWAYS
+        "demo": False
+    })
+
+    if java_path:
+        options["executablePath"] = java_path
+
+    return options
+
+def launch_game(instance_name):
+    try:
+        appdata_path = return_path()
+        instance_path = os.path.join(appdata_path, "instances", instance_name)
+        instance_data_res = read_instance(instance_name)
+        instance_data = instance_data_res["data"]
+        instance_game_version = instance_data["game_version"]
+        options = get_launch_options(instance_path)
+        instance_launch_command = minecraft_launcher_lib.command.get_minecraft_command(instance_game_version, instance_path, options)
+        subprocess.Popen(instance_launch_command, cwd=instance_path)
+        return {"success": True, "message": "minecraft launched successfully"}
+    except Exception as e:
+        return {"success": False, "message": "oops! looks like the game just crashed"}

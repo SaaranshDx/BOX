@@ -5,7 +5,6 @@ import json
 import minecraft_launcher_lib
 from path import return_path
 
-
 def get_instance_path(instance_name):
     app_data_path = return_path()
     return os.path.join(app_data_path, "instances", instance_name)
