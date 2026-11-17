@@ -14,25 +14,36 @@ def get_launcher_data(key=None):
         default_data = {
             "selectedAccount": None,
             "minRam": "1G",
-            "maxRam": "2G"
+            "maxRam": "2G",
+            "resolutionWidth": "1280",
+            "resolutionHeight": "720"
         }
 
         os.makedirs(app_data_path, exist_ok=True)
 
         if not os.path.exists(data_path):
-            with open(data_path, "w", encoding="utf-8") as file:
-                json.dump(default_data, file, indent=4)
+            data = default_data.copy()
 
-            data = default_data
+            with open(data_path, "w", encoding="utf-8") as file:
+                json.dump(data, file, indent=4)
 
         else:
             with open(data_path, "r", encoding="utf-8") as file:
                 data = json.load(file)
 
+            for setting, value in default_data.items():
+                data.setdefault(setting, value)
+
         if key is not None:
+            if key not in data:
+                return {
+                    "success": False,
+                    "message": f"Launcher setting '{key}' does not exist"
+                }
+
             return {
                 "success": True,
-                "data": data.get(key),
+                "data": data[key],
                 "key": key
             }
 
@@ -46,7 +57,7 @@ def get_launcher_data(key=None):
         return {
             "success": False,
             "message": "Failed to read launcher data",
-            "error": e
+            "error": str(e)
         }
 
 
@@ -55,18 +66,29 @@ def set_launcher_data(key, value):
         app_data_path = return_path()
         data_path = os.path.join(app_data_path, "data.json")
 
+        default_data = {
+            "selectedAccount": None,
+            "minRam": "1G",
+            "maxRam": "2G",
+            "resolutionWidth": "1280",
+            "resolutionHeight": "720"
+        }
+
         os.makedirs(app_data_path, exist_ok=True)
 
         if os.path.exists(data_path):
             with open(data_path, "r", encoding="utf-8") as file:
                 data = json.load(file)
+
+            for setting, default_value in default_data.items():
+                data.setdefault(setting, default_value)
         else:
-            data = {
-                "selectedAccount": None,
-                "minRam": "1G",
-                "maxRam": "2G",
-                "resolutionWidth": "1280",
-                "resolutionHeight": "720"
+            data = default_data.copy()
+
+        if key not in default_data:
+            return {
+                "success": False,
+                "message": f"Unknown launcher setting: {key}"
             }
 
         data[key] = value
@@ -85,17 +107,26 @@ def set_launcher_data(key, value):
         return {
             "success": False,
             "message": "Failed to update launcher data",
-            "error": e
+            "error": str(e)
         }
 
 def get_launch_options(instance_path, java_path=None):
+    result = get_launcher_data()
+
+    if result["success"]:
+        launcher_data = result["data"]
+
+        selected_account = launcher_data["selectedAccount"]
+        min_ram = launcher_data["minRam"]
+        max_ram = launcher_data["maxRam"]
+
     options = minecraft_launcher_lib.utils.generate_test_options()
 
     options.update({
         # we'd add the fweakin launcher option overrides laterrr
         "jvmArguments": [
-            "-Xms1G",
-            "-Xmx4G"
+            min_ram,
+            max_ram
         ],
 
         "customResolution": True,
