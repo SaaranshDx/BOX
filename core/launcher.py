@@ -5,6 +5,7 @@ from path import return_path
 import minecraft_launcher_lib
 from instances import read_instance
 import subprocess
+import uuid
 
 def get_launcher_data(key=None):
     try:
@@ -119,19 +120,22 @@ def get_launch_options(instance_path, java_path=None):
         selected_account = launcher_data["selectedAccount"]
         min_ram = launcher_data["minRam"]
         max_ram = launcher_data["maxRam"]
+        width = launcher_data["resolutionWidth"]
+        height = launcher_data["resolutionHeight"]
 
     options = minecraft_launcher_lib.utils.generate_test_options()
 
     options.update({
-        # we'd add the fweakin launcher option overrides laterrr
         "jvmArguments": [
             min_ram,
             max_ram
         ],
-
+        "username": selected_account,
+        #auth lib injector later :3
+        "uuid": f"{uuid.uuid4()}",
         "customResolution": True,
-        "resolutionWidth": "1280",
-        "resolutionHeight": "720",
+        "resolutionWidth": width,
+        "resolutionHeight": height,
 
         "gameDirectory": instance_path,
 
