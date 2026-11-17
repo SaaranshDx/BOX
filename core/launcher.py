@@ -3,7 +3,7 @@ import os
 import json
 from path import return_path
 import minecraft_launcher_lib
-from instances import read_instance
+from .instances import read_instance
 import subprocess
 import uuid
 
