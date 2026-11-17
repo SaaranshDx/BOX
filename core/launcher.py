@@ -17,7 +17,8 @@ def get_launcher_data(key=None):
             "minRam": "1G",
             "maxRam": "2G",
             "resolutionWidth": "1280",
-            "resolutionHeight": "720"
+            "resolutionHeight": "720",
+            "isOnboarded": False
         }
 
         os.makedirs(app_data_path, exist_ok=True)
@@ -72,7 +73,8 @@ def set_launcher_data(key, value):
             "minRam": "1G",
             "maxRam": "2G",
             "resolutionWidth": "1280",
-            "resolutionHeight": "720"
+            "resolutionHeight": "720",
+            "isOnboarded": False
         }
 
         os.makedirs(app_data_path, exist_ok=True)

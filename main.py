@@ -4,5 +4,9 @@ import os
 import json
 import minecraft_launcher_lib
 import webview
+
+class Api():
+    def is_onboarded()
+
 webview.create_window('Box', 'public/index.html')
 webview.start(debug=True)
