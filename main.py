@@ -31,5 +31,5 @@ class Api():
             return result
         return result
 
-webview.create_window('Box', 'public/index.html', js_api=Api())
+webview.create_window('Box', 'public/index.html', js_api=Api(), width=1100, height=700)
 webview.start(debug=True)
