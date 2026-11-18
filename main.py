@@ -40,5 +40,11 @@ class Api():
         if result.get("success"):
             return result
         return result
+    def install_instance(self, loader_version, version, name, modloader):
+        # we keep a registry of the versions and stuff
+        result = create_instance(loader_version, version, name, modloader)
+        if result.get("success"):
+            return result
+        return result
 webview.create_window('Box', 'public/index.html', js_api=Api(), width=1100, height=700)
 webview.start(debug=True)
