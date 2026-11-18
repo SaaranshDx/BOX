@@ -25,8 +25,11 @@ class Api():
         if result.get("success"):
             return result
         return result
-
-
+    def delete_acc(self,ign):
+        result = delete_account(ign)
+        if result.get("success"):
+            return result
+        return result
 
 webview.create_window('Box', 'public/index.html', js_api=Api())
 webview.start(debug=True)
