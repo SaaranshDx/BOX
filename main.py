@@ -14,6 +14,11 @@ class Api():
         if result.get("success"):
             return result["data"]
         return False
+    def create_account(self, ign):
+        result = add_account(ign)
+        if result.get("success"):
+            return result
+
 
 webview.create_window('Box', 'public/index.html', js_api=Api())
 webview.start(debug=True)
