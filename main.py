@@ -30,12 +30,15 @@ class Api():
         if result.get("success"):
             return result
         return result
-    def get_instance_list():
+    def get_instance_list(self):
         result = list_instances()
         if result.get("success"):
             return result
         return result
-
-
+    def read_instance_meta(self, name):
+        result = read_instance(name)
+        if result.get("success"):
+            return result
+        return result
 webview.create_window('Box', 'public/index.html', js_api=Api(), width=1100, height=700)
 webview.start(debug=True)
