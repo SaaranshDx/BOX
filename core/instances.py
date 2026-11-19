@@ -2,8 +2,69 @@
 from pathlib import Path
 import os
 import json
+import threading
 import minecraft_launcher_lib
 from path import return_path
+
+_install_progress = {}
+_install_lock = threading.Lock()
+
+
+def _set_install_progress(name, **updates):
+    with _install_lock:
+        state = _install_progress.setdefault(name, {
+            "instance_name": name,
+            "running": True,
+            "success": False,
+            "status": "",
+            "progress": 0,
+            "max": 0,
+            "percentage": 0,
+            "error": None
+        })
+        state.update(updates)
+
+
+def _get_install_callback(name):
+    return {
+        "setStatus": lambda status: _set_install_progress(name, status=status),
+        "setProgress": lambda progress: _set_install_progress(name, progress=progress),
+        "setMax": lambda maximum: _set_install_progress(name, max=maximum)
+    }
+
+
+def get_install_progress(instance_name):
+    """Return the live installation progress state of an instance."""
+    try:
+        with _install_lock:
+            state = _install_progress.get(instance_name)
+
+            if state is None:
+                return {
+                    "success": False,
+                    "message": f"No installation found for instance '{instance_name}'"
+                }
+
+            data = dict(state)
+
+        if data["max"] > 0:
+            data["percentage"] = round((data["progress"] / data["max"]) * 100, 2)
+        else:
+            data["percentage"] = 0
+
+        return {
+            "success": True,
+            "data": data
+        }
+
+    except Exception as e:
+        print(f"Error reading install progress '{instance_name}': {e}")
+        return {
+            "success": False,
+            "message": "Failed to read installation progress",
+            "error": str(e)
+        }
+
 
 def get_instance_path(instance_name):
     app_data_path = return_path()
@@ -171,14 +232,40 @@ def create_instance(loader_version, version, name, modloader):
         with open(index_path, "w", encoding="utf-8") as file:
             json.dump(index_data, file, indent=4)
 
+        _set_install_progress(
+            name,
+            running=True,
+            success=False,
+            status="Preparing installation",
+            progress=0,
+            max=0,
+            percentage=0,
+            error=None
+        )
+
+        callback = _get_install_callback(name)
+
         if modloader != "none":
             loader = minecraft_launcher_lib.mod_loader.get_mod_loader(modloader)
-            loader.install(version, instance_path)
+            loader.install(
+                version,
+                instance_path,
+                callback=callback
+            )
         else:
             minecraft_launcher_lib.install.install_minecraft_version(
                 version,
-                instance_path
+                instance_path,
+                callback=callback
             )
+
+        _set_install_progress(
+            name,
+            running=False,
+            success=True,
+            status="Installation complete",
+            percentage=100
+        )
 
         return {
             "success": True,
@@ -187,6 +274,13 @@ def create_instance(loader_version, version, name, modloader):
         }
 
     except Exception as e:
+        _set_install_progress(
+            name,
+            running=False,
+            success=False,
+            status="Installation failed",
+            error=str(e)
+        )
         return {
             "success": False,
             "message": "An error occurred during installation",

@@ -46,6 +46,11 @@ class Api():
         if result.get("success"):
             return result
         return result
+    def get_instance_install_progress(self, name):
+        result = get_install_progress(name)
+        if result.get("success"):
+            return result
+        return result
     def pull_launcher_settings(self):
         result = get_launcher_data()
         if result.get("success"):
