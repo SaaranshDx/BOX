@@ -50,14 +50,14 @@ def _update_index():
         if not os.path.exists(index_path):
             with open(index_path, "w", encoding="utf-8") as file:
                 json.dump({}, file, indent=4)
-            return {}
 
         instance_dirs = [
             d for d in os.listdir(instances_dir)
-            if os.path.isdir(os.path.join(instances_dir, d)) and d != "index.json"
+            if os.path.isdir(os.path.join(instances_dir, d))
         ]
 
         index_data = {}
+
         for instance_name in instance_dirs:
             instance_path = os.path.join(instances_dir, instance_name)
             instance_json_path = os.path.join(instance_path, "instance.json")
@@ -82,7 +82,6 @@ def _update_index():
     except Exception as e:
         print(f"Error updating index: {e}")
         return {}
-
 
 def list_instances():
     try:
