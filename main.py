@@ -46,5 +46,20 @@ class Api():
         if result.get("success"):
             return result
         return result
+    def pull_launcher_settings(self):
+        result = get_launcher_data()
+        if result.get("success"):
+            return result
+        return result
+    def update_launcher_settings(self, key, value):
+        result = get_launcher_data()
+        if result.get("success"):
+            return result
+        return result
+    def launch_instance(self, name):
+        result = launch_game(name)
+        if result.get("success"):
+            return result
+        return result
 webview.create_window('Box', 'public/index.html', js_api=Api(), width=1100, height=700)
 webview.start(debug=True)

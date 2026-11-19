@@ -113,6 +113,7 @@ def set_launcher_data(key, value):
             "error": str(e)
         }
 
+# WOULD be used internally so stupid me dont fuck this upin the futuere cuz i know you are still gonna be fucking stupid
 def get_launch_options(instance_path, java_path=None):
     result = get_launcher_data()
 
