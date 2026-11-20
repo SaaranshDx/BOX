@@ -57,7 +57,7 @@ class Api():
             return result
         return result
     def update_launcher_settings(self, key, value):
-        result = get_launcher_data()
+        result = set_launcher_data(key, value)
         if result.get("success"):
             return result
         return result
