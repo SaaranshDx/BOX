@@ -37,11 +37,11 @@ export const MODLOADER_ICONS = {
   },
   forge: {
     name: "Forge",
-    icon: "https://files.minecraftforge.net/static/images/logo.svg",
+    icon: "https://avatars.githubusercontent.com/u/1390178?s=200&v=4",
   },
   neoforge: {
     name: "NeoForge",
-    icon: "https://neoforged.net/img/neoforged.svg",
+    icon: "https://avatars.githubusercontent.com/u/173360952?s=200&v=4",
   },
 };
 
