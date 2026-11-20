@@ -158,8 +158,6 @@ export const MINECRAFT_VERSIONS = {
   "1.21.7": {
     type: "minor",
     name: "Chase the Skies",
-    backgroundImage: "https://www.minecraft.net/content/dam/minecraftnet/games/minecraft/key-art/MC_1-21-6_ChaseTheSkies_KeyArt.jpg",
-    icon: "https://minecraft.wiki/images/Ghast_Tear_JE2_BE2.png",
     loaders: {
       none: true,
       fabric: { min: "0.16.10", max: "latest" },
@@ -170,8 +168,6 @@ export const MINECRAFT_VERSIONS = {
   "1.21.6": {
     type: "minor",
     name: "Chase the Skies",
-    backgroundImage: "https://www.minecraft.net/content/dam/minecraftnet/games/minecraft/key-art/MC_1-21-6_ChaseTheSkies_KeyArt.jpg",
-    icon: "https://minecraft.wiki/images/Saddle_JE2_BE2.png",
     loaders: {
       none: true,
       fabric: { min: "0.16.10", max: "latest" },
@@ -182,8 +178,6 @@ export const MINECRAFT_VERSIONS = {
   "1.21.5": {
     type: "minor",
     name: "Spring to Life",
-    backgroundImage: "https://www.minecraft.net/content/dam/minecraftnet/games/minecraft/key-art/MC_1-21-5_SpringToLife_KeyArt.jpg",
-    icon: "https://minecraft.wiki/images/Wildflowers_JE1_BE1.png",
     loaders: {
       none: true,
       fabric: { min: "0.16.10", max: "latest" },
@@ -194,8 +188,6 @@ export const MINECRAFT_VERSIONS = {
   "1.21.4": {
     type: "minor",
     name: "The Garden Awakens",
-    backgroundImage: "https://www.minecraft.net/content/dam/minecraftnet/games/minecraft/key-art/MC_1-21-4_GardenAwakens_KeyArt.jpg",
-    icon: "https://minecraft.wiki/images/Creaking_Heart_JE1_BE1.png",
     loaders: {
       none: true,
       fabric: { min: "0.16.9", max: "latest" },
@@ -206,8 +198,6 @@ export const MINECRAFT_VERSIONS = {
   "1.21.3": {
     type: "minor",
     name: "Bundles of Bravery",
-    backgroundImage: "https://www.minecraft.net/content/dam/minecraftnet/games/minecraft/key-art/MC_1-21-2_BundlesOfBravery_KeyArt.jpg",
-    icon: "https://minecraft.wiki/images/Bundle_JE2_BE2.png",
     loaders: {
       none: true,
       fabric: { min: "0.16.7", max: "latest" },
@@ -218,8 +208,6 @@ export const MINECRAFT_VERSIONS = {
   "1.21.2": {
     type: "minor",
     name: "Bundles of Bravery",
-    backgroundImage: "https://www.minecraft.net/content/dam/minecraftnet/games/minecraft/key-art/MC_1-21-2_BundlesOfBravery_KeyArt.jpg",
-    icon: "https://minecraft.wiki/images/Bundle_JE2_BE2.png",
     loaders: {
       none: true,
       fabric: { min: "0.16.7", max: "latest" },
@@ -230,8 +218,6 @@ export const MINECRAFT_VERSIONS = {
   "1.21.1": {
     type: "minor",
     name: "Tricky Trials",
-    backgroundImage: "https://www.minecraft.net/content/dam/minecraftnet/games/minecraft/key-art/MC_1-21_TrickyTrials_KeyArt.jpg",
-    icon: "https://minecraft.wiki/images/Mace_JE1_BE1.png",
     loaders: {
       none: true,
       fabric: { min: "0.16.0", max: "latest" },
@@ -242,8 +228,6 @@ export const MINECRAFT_VERSIONS = {
   "1.21": {
     type: "major",
     name: "Tricky Trials",
-    backgroundImage: "https://www.minecraft.net/content/dam/minecraftnet/games/minecraft/key-art/MC_1-21_TrickyTrials_KeyArt.jpg",
-    icon: "https://minecraft.wiki/images/Trial_Key_JE1_BE1.png",
     loaders: {
       none: true,
       fabric: { min: "0.15.11", max: "latest" },
@@ -255,8 +239,6 @@ export const MINECRAFT_VERSIONS = {
   "1.20.6": {
     type: "minor",
     name: "Trails & Tales",
-    backgroundImage: "https://www.minecraft.net/content/dam/minecraftnet/games/minecraft/key-art/MC_1-20_TrailsAndTales_KeyArt.jpg",
-    icon: "https://minecraft.wiki/images/Wolf_Armor_JE1_BE1.png",
     loaders: {
       none: true,
       fabric: { min: "0.15.10", max: "latest" },
@@ -267,8 +249,6 @@ export const MINECRAFT_VERSIONS = {
   "1.20.5": {
     type: "minor",
     name: "Armored Paws",
-    backgroundImage: "https://www.minecraft.net/content/dam/minecraftnet/games/minecraft/key-art/MC_1-20_TrailsAndTales_KeyArt.jpg",
-    icon: "https://minecraft.wiki/images/Armadillo_Scute_JE1_BE1.png",
     loaders: {
       none: true,
       fabric: { min: "0.15.10", max: "latest" },
@@ -279,8 +259,6 @@ export const MINECRAFT_VERSIONS = {
   "1.20.4": {
     type: "minor",
     name: "Trails & Tales",
-    backgroundImage: "https://www.minecraft.net/content/dam/minecraftnet/games/minecraft/key-art/MC_1-20_TrailsAndTales_KeyArt.jpg",
-    icon: "https://minecraft.wiki/images/Decorated_Pot_JE1_BE1.png",
     loaders: {
       none: true,
       fabric: { min: "0.15.0", max: "latest" },
@@ -291,8 +269,6 @@ export const MINECRAFT_VERSIONS = {
   "1.20.3": {
     type: "minor",
     name: "Bats and Pots",
-    backgroundImage: "https://www.minecraft.net/content/dam/minecraftnet/games/minecraft/key-art/MC_1-20_TrailsAndTales_KeyArt.jpg",
-    icon: "https://minecraft.wiki/images/Decorated_Pot_JE1_BE1.png",
     loaders: {
       none: true,
       fabric: { min: "0.15.0", max: "latest" },
@@ -303,8 +279,6 @@ export const MINECRAFT_VERSIONS = {
   "1.20.2": {
     type: "minor",
     name: "Trails & Tales",
-    backgroundImage: "https://www.minecraft.net/content/dam/minecraftnet/games/minecraft/key-art/MC_1-20_TrailsAndTales_KeyArt.jpg",
-    icon: "https://minecraft.wiki/images/Cherry_Sapling_JE1_BE1.png",
     loaders: {
       none: true,
       fabric: { min: "0.14.22", max: "latest" },
@@ -315,8 +289,6 @@ export const MINECRAFT_VERSIONS = {
   "1.20.1": {
     type: "minor",
     name: "Trails & Tales",
-    backgroundImage: "https://www.minecraft.net/content/dam/minecraftnet/games/minecraft/key-art/MC_1-20_TrailsAndTales_KeyArt.jpg",
-    icon: "https://minecraft.wiki/images/Brush_JE1_BE1.png",
     loaders: {
       none: true,
       fabric: { min: "0.14.21", max: "latest" },
@@ -327,8 +299,6 @@ export const MINECRAFT_VERSIONS = {
   "1.20": {
     type: "major",
     name: "Trails & Tales",
-    backgroundImage: "https://www.minecraft.net/content/dam/minecraftnet/games/minecraft/key-art/MC_1-20_TrailsAndTales_KeyArt.jpg",
-    icon: "https://minecraft.wiki/images/Sniffer_Egg_JE1_BE1.png",
     loaders: {
       none: true,
       fabric: { min: "0.14.21", max: "latest" },
@@ -340,8 +310,6 @@ export const MINECRAFT_VERSIONS = {
   "1.19.4": {
     type: "minor",
     name: "The Wild Update",
-    backgroundImage: "https://www.minecraft.net/content/dam/minecraftnet/games/minecraft/key-art/MC_1-19_WildUpdate_KeyArt.jpg",
-    icon: "https://minecraft.wiki/images/Torchflower_JE1_BE1.png",
     loaders: {
       none: true,
       fabric: { min: "0.14.17", max: "latest" },
@@ -352,8 +320,6 @@ export const MINECRAFT_VERSIONS = {
   "1.19.3": {
     type: "minor",
     name: "The Wild Update",
-    backgroundImage: "https://www.minecraft.net/content/dam/minecraftnet/games/minecraft/key-art/MC_1-19_WildUpdate_KeyArt.jpg",
-    icon: "https://minecraft.wiki/images/Bamboo_Raft_JE1_BE1.png",
     loaders: {
       none: true,
       fabric: { min: "0.14.11", max: "latest" },
@@ -364,8 +330,6 @@ export const MINECRAFT_VERSIONS = {
   "1.19.2": {
     type: "minor",
     name: "The Wild Update",
-    backgroundImage: "https://www.minecraft.net/content/dam/minecraftnet/games/minecraft/key-art/MC_1-19_WildUpdate_KeyArt.jpg",
-    icon: "https://minecraft.wiki/images/Recovery_Compass_JE1_BE1.gif",
     loaders: {
       none: true,
       fabric: { min: "0.14.9", max: "latest" },
@@ -376,8 +340,6 @@ export const MINECRAFT_VERSIONS = {
   "1.19.1": {
     type: "minor",
     name: "The Wild Update",
-    backgroundImage: "https://www.minecraft.net/content/dam/minecraftnet/games/minecraft/key-art/MC_1-19_WildUpdate_KeyArt.jpg",
-    icon: "https://minecraft.wiki/images/Echo_Shard_JE1_BE1.png",
     loaders: {
       none: true,
       fabric: { min: "0.14.8", max: "latest" },
@@ -388,8 +350,6 @@ export const MINECRAFT_VERSIONS = {
   "1.19": {
     type: "major",
     name: "The Wild Update",
-    backgroundImage: "https://www.minecraft.net/content/dam/minecraftnet/games/minecraft/key-art/MC_1-19_WildUpdate_KeyArt.jpg",
-    icon: "https://minecraft.wiki/images/Sculk_Sensor_JE1_BE1.gif",
     loaders: {
       none: true,
       fabric: { min: "0.14.6", max: "latest" },
@@ -401,8 +361,6 @@ export const MINECRAFT_VERSIONS = {
   "1.18.2": {
     type: "minor",
     name: "Caves & Cliffs: Part II",
-    backgroundImage: "https://www.minecraft.net/content/dam/minecraftnet/games/minecraft/key-art/MC_1-18_CavesAndCliffsPart2_KeyArt.jpg",
-    icon: "https://minecraft.wiki/images/Deepslate_Emerald_Ore_JE1_BE1.png",
     loaders: {
       none: true,
       fabric: { min: "0.13.3", max: "latest" },
@@ -413,8 +371,6 @@ export const MINECRAFT_VERSIONS = {
   "1.18.1": {
     type: "minor",
     name: "Caves & Cliffs: Part II",
-    backgroundImage: "https://www.minecraft.net/content/dam/minecraftnet/games/minecraft/key-art/MC_1-18_CavesAndCliffsPart2_KeyArt.jpg",
-    icon: "https://minecraft.wiki/images/Deepslate_Diamond_Ore_JE2_BE1.png",
     loaders: {
       none: true,
       fabric: { min: "0.12.11", max: "latest" },
@@ -425,8 +381,6 @@ export const MINECRAFT_VERSIONS = {
   "1.18": {
     type: "major",
     name: "Caves & Cliffs: Part II",
-    backgroundImage: "https://www.minecraft.net/content/dam/minecraftnet/games/minecraft/key-art/MC_1-18_CavesAndCliffsPart2_KeyArt.jpg",
-    icon: "https://minecraft.wiki/images/Goat_Horn_JE1_BE1.png",
     loaders: {
       none: true,
       fabric: { min: "0.12.8", max: "latest" },
@@ -438,8 +392,6 @@ export const MINECRAFT_VERSIONS = {
   "1.17.1": {
     type: "minor",
     name: "Caves & Cliffs: Part I",
-    backgroundImage: "https://www.minecraft.net/content/dam/minecraftnet/games/minecraft/key-art/MC_1-17_CavesAndCliffsPart1_KeyArt.jpg",
-    icon: "https://minecraft.wiki/images/Amethyst_Cluster_JE1_BE1.png",
     loaders: {
       none: true,
       fabric: { min: "0.11.6", max: "latest" },
@@ -450,8 +402,6 @@ export const MINECRAFT_VERSIONS = {
   "1.17": {
     type: "major",
     name: "Caves & Cliffs: Part I",
-    backgroundImage: "https://www.minecraft.net/content/dam/minecraftnet/games/minecraft/key-art/MC_1-17_CavesAndCliffsPart1_KeyArt.jpg",
-    icon: "https://minecraft.wiki/images/Spyglass_JE2_BE1.png",
     loaders: {
       none: true,
       fabric: { min: "0.11.3", max: "latest" },
@@ -463,8 +413,6 @@ export const MINECRAFT_VERSIONS = {
   "1.16.5": {
     type: "minor",
     name: "Nether Update",
-    backgroundImage: "https://www.minecraft.net/content/dam/minecraftnet/games/minecraft/key-art/MC_1-16_NetherUpdate_KeyArt.jpg",
-    icon: "https://minecraft.wiki/images/Netherite_Ingot_JE1_BE2.png",
     loaders: {
       none: true,
       fabric: { min: "0.11.0", max: "latest" },
@@ -475,8 +423,6 @@ export const MINECRAFT_VERSIONS = {
   "1.16.4": {
     type: "minor",
     name: "Nether Update",
-    backgroundImage: "https://www.minecraft.net/content/dam/minecraftnet/games/minecraft/key-art/MC_1-16_NetherUpdate_KeyArt.jpg",
-    icon: "https://minecraft.wiki/images/Lodestone_JE1_BE1.png",
     loaders: {
       none: true,
       fabric: { min: "0.10.6", max: "latest" },
@@ -487,8 +433,6 @@ export const MINECRAFT_VERSIONS = {
   "1.16.3": {
     type: "minor",
     name: "Nether Update",
-    backgroundImage: "https://www.minecraft.net/content/dam/minecraftnet/games/minecraft/key-art/MC_1-16_NetherUpdate_KeyArt.jpg",
-    icon: "https://minecraft.wiki/images/Respawn_Anchor_JE1_BE1.png",
     loaders: {
       none: true,
       fabric: { min: "0.9.3", max: "latest" },
@@ -499,8 +443,6 @@ export const MINECRAFT_VERSIONS = {
   "1.16.2": {
     type: "minor",
     name: "Nether Update",
-    backgroundImage: "https://www.minecraft.net/content/dam/minecraftnet/games/minecraft/key-art/MC_1-16_NetherUpdate_KeyArt.jpg",
-    icon: "https://minecraft.wiki/images/Piglin_Brute_JE1_BE1.png",
     loaders: {
       none: true,
       fabric: { min: "0.9.1", max: "latest" },
@@ -511,8 +453,6 @@ export const MINECRAFT_VERSIONS = {
   "1.16.1": {
     type: "minor",
     name: "Nether Update",
-    backgroundImage: "https://www.minecraft.net/content/dam/minecraftnet/games/minecraft/key-art/MC_1-16_NetherUpdate_KeyArt.jpg",
-    icon: "https://minecraft.wiki/images/Crimson_Fungus_JE1_BE1.png",
     loaders: {
       none: true,
       fabric: { min: "0.8.8", max: "latest" },
@@ -523,8 +463,6 @@ export const MINECRAFT_VERSIONS = {
   "1.16": {
     type: "major",
     name: "Nether Update",
-    backgroundImage: "https://www.minecraft.net/content/dam/minecraftnet/games/minecraft/key-art/MC_1-16_NetherUpdate_KeyArt.jpg",
-    icon: "https://minecraft.wiki/images/Ancient_Debris_JE1_BE1.png",
     loaders: {
       none: true,
       fabric: { min: "0.8.8", max: "latest" },
