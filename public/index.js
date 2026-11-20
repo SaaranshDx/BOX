@@ -41,8 +41,9 @@ const MODLOADER_ICONS = {
   },
 };
 
-const MINECRAFT_VERSIONS = {
-  "26.3": {
+const MINECRAFT_VERSIONS = [
+  {
+    version: "26.3",
     type: "major",
     name: "Wilderness Bound",
     backgroundImage: "https://www.minecraft.net/content/dam/minecraftnet/games/minecraft/key-art/MC_26-3_WildernessBound_KeyArt.jpg",
@@ -54,7 +55,8 @@ const MINECRAFT_VERSIONS = {
       neoforge: { min: "26.3.0.1-beta", max: "26.3.0.x" },
     },
   },
-  "26.2": {
+  {
+    version: "26.2",
     type: "major",
     name: "Chaos Cubed",
     backgroundImage: "https://www.minecraft.net/content/dam/minecraftnet/games/minecraft/key-art/MC_26-2_ChaosCubed_KeyArt.jpg",
@@ -66,7 +68,8 @@ const MINECRAFT_VERSIONS = {
       neoforge: { min: "26.2.0.1-beta", max: "26.2.0.x" },
     },
   },
-  "26.1.2": {
+  {
+    version: "26.1.2",
     type: "minor",
     name: "Tiny Takeover",
     backgroundImage: "https://www.minecraft.net/content/dam/minecraftnet/games/minecraft/key-art/MC_26-1_TinyTakeover_KeyArt.jpg",
@@ -78,7 +81,8 @@ const MINECRAFT_VERSIONS = {
       neoforge: { min: "26.1.2.1-beta", max: "26.1.2.x" },
     },
   },
-  "26.1.1": {
+  {
+    version: "26.1.1",
     type: "minor",
     name: "Tiny Takeover",
     backgroundImage: "https://www.minecraft.net/content/dam/minecraftnet/games/minecraft/key-art/MC_26-1_TinyTakeover_KeyArt.jpg",
@@ -90,7 +94,8 @@ const MINECRAFT_VERSIONS = {
       neoforge: { min: "26.1.1.1-beta", max: "26.1.1.x" },
     },
   },
-  "26.1": {
+  {
+    version: "26.1",
     type: "major",
     name: "Tiny Takeover",
     backgroundImage: "https://www.minecraft.net/content/dam/minecraftnet/games/minecraft/key-art/MC_26-1_TinyTakeover_KeyArt.jpg",
@@ -102,8 +107,8 @@ const MINECRAFT_VERSIONS = {
       neoforge: { min: "26.1.0.1-beta", max: "26.1.0.x" },
     },
   },
-
-  "1.21.11": {
+  {
+    version: "1.21.11",
     type: "minor",
     name: "Mounts of Mayhem",
     backgroundImage: "https://www.minecraft.net/content/dam/minecraftnet/games/minecraft/key-art/MC_1-21-11_MountsOfMayhem_KeyArt.jpg",
@@ -115,7 +120,8 @@ const MINECRAFT_VERSIONS = {
       neoforge: { min: "21.11.0-beta", max: "21.11.x" },
     },
   },
-  "1.21.10": {
+  {
+    version: "1.21.10",
     type: "minor",
     name: "The Copper Age",
     backgroundImage: "https://www.minecraft.net/content/dam/minecraftnet/games/minecraft/key-art/MC_1-21-9_CopperAge_KeyArt.jpg",
@@ -127,7 +133,8 @@ const MINECRAFT_VERSIONS = {
       neoforge: { min: "21.10.0-beta", max: "21.10.x" },
     },
   },
-  "1.21.9": {
+  {
+    version: "1.21.9",
     type: "minor",
     name: "The Copper Age",
     backgroundImage: "https://www.minecraft.net/content/dam/minecraftnet/games/minecraft/key-art/MC_1-21-9_CopperAge_KeyArt.jpg",
@@ -139,7 +146,8 @@ const MINECRAFT_VERSIONS = {
       neoforge: { min: "21.9.0-beta", max: "21.9.x" },
     },
   },
-  "1.21.8": {
+  {
+    version: "1.21.8",
     type: "minor",
     name: "Chase the Skies",
     backgroundImage: "https://www.minecraft.net/content/dam/minecraftnet/games/minecraft/key-art/MC_1-21-6_ChaseTheSkies_KeyArt.jpg",
@@ -151,7 +159,8 @@ const MINECRAFT_VERSIONS = {
       neoforge: { min: "21.8.0-beta", max: "21.8.x" },
     },
   },
-  "1.21.7": {
+  {
+    version: "1.21.7",
     type: "minor",
     name: "Chase the Skies",
     loaders: {
@@ -161,7 +170,8 @@ const MINECRAFT_VERSIONS = {
       neoforge: { min: "21.7.0-beta", max: "21.7.x" },
     },
   },
-  "1.21.6": {
+  {
+    version: "1.21.6",
     type: "minor",
     name: "Chase the Skies",
     loaders: {
@@ -171,7 +181,8 @@ const MINECRAFT_VERSIONS = {
       neoforge: { min: "21.6.0-beta", max: "21.6.x" },
     },
   },
-  "1.21.5": {
+  {
+    version: "1.21.5",
     type: "minor",
     name: "Spring to Life",
     loaders: {
@@ -181,7 +192,8 @@ const MINECRAFT_VERSIONS = {
       neoforge: { min: "21.5.0-beta", max: "21.5.x" },
     },
   },
-  "1.21.4": {
+  {
+    version: "1.21.4",
     type: "minor",
     name: "The Garden Awakens",
     loaders: {
@@ -191,7 +203,8 @@ const MINECRAFT_VERSIONS = {
       neoforge: { min: "21.4.0-beta", max: "21.4.x" },
     },
   },
-  "1.21.3": {
+  {
+    version: "1.21.3",
     type: "minor",
     name: "Bundles of Bravery",
     loaders: {
@@ -201,7 +214,8 @@ const MINECRAFT_VERSIONS = {
       neoforge: { min: "21.3.0-beta", max: "21.3.x" },
     },
   },
-  "1.21.2": {
+  {
+    version: "1.21.2",
     type: "minor",
     name: "Bundles of Bravery",
     loaders: {
@@ -211,7 +225,8 @@ const MINECRAFT_VERSIONS = {
       neoforge: { min: "21.2.0-beta", max: "21.2.x" },
     },
   },
-  "1.21.1": {
+  {
+    version: "1.21.1",
     type: "minor",
     name: "Tricky Trials",
     loaders: {
@@ -221,7 +236,8 @@ const MINECRAFT_VERSIONS = {
       neoforge: { min: "21.1.0", max: "21.1.x" },
     },
   },
-  "1.21": {
+  {
+    version: "1.21",
     type: "major",
     name: "Tricky Trials",
     loaders: {
@@ -231,8 +247,8 @@ const MINECRAFT_VERSIONS = {
       neoforge: { min: "21.0.0-beta", max: "21.0.x" },
     },
   },
-
-  "1.20.6": {
+  {
+    version: "1.20.6",
     type: "minor",
     name: "Trails & Tales",
     loaders: {
@@ -242,7 +258,8 @@ const MINECRAFT_VERSIONS = {
       neoforge: { min: "20.6.0-beta", max: "20.6.x" },
     },
   },
-  "1.20.5": {
+  {
+    version: "1.20.5",
     type: "minor",
     name: "Armored Paws",
     loaders: {
@@ -252,7 +269,8 @@ const MINECRAFT_VERSIONS = {
       neoforge: { min: "20.5.0-beta", max: "20.5.x" },
     },
   },
-  "1.20.4": {
+  {
+    version: "1.20.4",
     type: "minor",
     name: "Trails & Tales",
     loaders: {
@@ -262,7 +280,8 @@ const MINECRAFT_VERSIONS = {
       neoforge: { min: "20.4.0-beta", max: "20.4.x" },
     },
   },
-  "1.20.3": {
+  {
+    version: "1.20.3",
     type: "minor",
     name: "Bats and Pots",
     loaders: {
@@ -272,7 +291,8 @@ const MINECRAFT_VERSIONS = {
       neoforge: { min: "20.3.0-beta", max: "20.3.x" },
     },
   },
-  "1.20.2": {
+  {
+    version: "1.20.2",
     type: "minor",
     name: "Trails & Tales",
     loaders: {
@@ -282,7 +302,8 @@ const MINECRAFT_VERSIONS = {
       neoforge: { min: "20.2.3-beta", max: "20.2.x" },
     },
   },
-  "1.20.1": {
+  {
+    version: "1.20.1",
     type: "minor",
     name: "Trails & Tales",
     loaders: {
@@ -292,7 +313,8 @@ const MINECRAFT_VERSIONS = {
       neoforge: { min: "47.1.54", max: "47.1.x" }, // Legacy NeoForge 1.20.1 fork range
     },
   },
-  "1.20": {
+  {
+    version: "1.20",
     type: "major",
     name: "Trails & Tales",
     loaders: {
@@ -302,8 +324,8 @@ const MINECRAFT_VERSIONS = {
       neoforge: null,
     },
   },
-
-  "1.19.4": {
+  {
+    version: "1.19.4",
     type: "minor",
     name: "The Wild Update",
     loaders: {
@@ -313,7 +335,8 @@ const MINECRAFT_VERSIONS = {
       neoforge: null,
     },
   },
-  "1.19.3": {
+  {
+    version: "1.19.3",
     type: "minor",
     name: "The Wild Update",
     loaders: {
@@ -323,7 +346,8 @@ const MINECRAFT_VERSIONS = {
       neoforge: null,
     },
   },
-  "1.19.2": {
+  {
+    version: "1.19.2",
     type: "minor",
     name: "The Wild Update",
     loaders: {
@@ -333,7 +357,8 @@ const MINECRAFT_VERSIONS = {
       neoforge: null,
     },
   },
-  "1.19.1": {
+  {
+    version: "1.19.1",
     type: "minor",
     name: "The Wild Update",
     loaders: {
@@ -343,7 +368,8 @@ const MINECRAFT_VERSIONS = {
       neoforge: null,
     },
   },
-  "1.19": {
+  {
+    version: "1.19",
     type: "major",
     name: "The Wild Update",
     loaders: {
@@ -353,8 +379,8 @@ const MINECRAFT_VERSIONS = {
       neoforge: null,
     },
   },
-
-  "1.18.2": {
+  {
+    version: "1.18.2",
     type: "minor",
     name: "Caves & Cliffs: Part II",
     loaders: {
@@ -364,7 +390,8 @@ const MINECRAFT_VERSIONS = {
       neoforge: null,
     },
   },
-  "1.18.1": {
+  {
+    version: "1.18.1",
     type: "minor",
     name: "Caves & Cliffs: Part II",
     loaders: {
@@ -374,7 +401,8 @@ const MINECRAFT_VERSIONS = {
       neoforge: null,
     },
   },
-  "1.18": {
+  {
+    version: "1.18",
     type: "major",
     name: "Caves & Cliffs: Part II",
     loaders: {
@@ -384,8 +412,8 @@ const MINECRAFT_VERSIONS = {
       neoforge: null,
     },
   },
-
-  "1.17.1": {
+  {
+    version: "1.17.1",
     type: "minor",
     name: "Caves & Cliffs: Part I",
     loaders: {
@@ -395,7 +423,8 @@ const MINECRAFT_VERSIONS = {
       neoforge: null,
     },
   },
-  "1.17": {
+  {
+    version: "1.17",
     type: "major",
     name: "Caves & Cliffs: Part I",
     loaders: {
@@ -405,8 +434,8 @@ const MINECRAFT_VERSIONS = {
       neoforge: null,
     },
   },
-
-  "1.16.5": {
+  {
+    version: "1.16.5",
     type: "minor",
     name: "Nether Update",
     loaders: {
@@ -416,7 +445,8 @@ const MINECRAFT_VERSIONS = {
       neoforge: null,
     },
   },
-  "1.16.4": {
+  {
+    version: "1.16.4",
     type: "minor",
     name: "Nether Update",
     loaders: {
@@ -426,7 +456,8 @@ const MINECRAFT_VERSIONS = {
       neoforge: null,
     },
   },
-  "1.16.3": {
+  {
+    version: "1.16.3",
     type: "minor",
     name: "Nether Update",
     loaders: {
@@ -436,7 +467,8 @@ const MINECRAFT_VERSIONS = {
       neoforge: null,
     },
   },
-  "1.16.2": {
+  {
+    version: "1.16.2",
     type: "minor",
     name: "Nether Update",
     loaders: {
@@ -446,7 +478,8 @@ const MINECRAFT_VERSIONS = {
       neoforge: null,
     },
   },
-  "1.16.1": {
+  {
+    version: "1.16.1",
     type: "minor",
     name: "Nether Update",
     loaders: {
@@ -456,7 +489,8 @@ const MINECRAFT_VERSIONS = {
       neoforge: null,
     },
   },
-  "1.16": {
+  {
+    version: "1.16",
     type: "major",
     name: "Nether Update",
     loaders: {
@@ -466,7 +500,8 @@ const MINECRAFT_VERSIONS = {
       neoforge: null,
     },
   },
-};
+];
+
 // we would use the icon basesd on the mod loader aweghhgujgiuejagwguuihbwt4
 // falls back to da lastest
 const defaultVersion = MINECRAFT_VERSIONS.at(-1)
