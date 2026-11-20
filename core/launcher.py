@@ -74,7 +74,8 @@ def set_launcher_data(key, value):
             "maxRam": "2G",
             "resolutionWidth": "1280",
             "resolutionHeight": "720",
-            "isOnboarded": False
+            "isOnboarded": False,
+            "lastInstancePlayed": None,
         }
 
         os.makedirs(app_data_path, exist_ok=True)
@@ -159,6 +160,7 @@ def launch_game(instance_name):
         instance_data = instance_data_res["data"]
         instance_game_version = instance_data["game_version"]
         options = get_launch_options(instance_path)
+        last_played_istance = set_launcher_data("lastInstancePlayed", instance_name)
         instance_launch_command = minecraft_launcher_lib.command.get_minecraft_command(instance_game_version, instance_path, options)
         process = subprocess.Popen(instance_launch_command, cwd=instance_path, stdout=subprocess.PIPE, stderr=subprocess.STDOUT, text=True, encoding="utf-8", errors="replace")
 
