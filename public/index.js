@@ -1,3 +1,7 @@
+let lastPlayedInstance = null
+let settings = null
+
+
 window.addEventListener('pywebviewready', function() {
     init();
 });
@@ -5,6 +9,9 @@ window.addEventListener('pywebviewready', function() {
 async function init() {
     try {
         const isOnboarded = await window.pywebview.api.is_onboarded();
+        settings = getSettings()
+        lastPlayedInstance = settings["lastInstancePlayed"]
+
         if (!isOnboarded) {
             console.log("onboarding shown");
         }
@@ -509,6 +516,7 @@ const defaultVersion = MINECRAFT_VERSIONS.at(-1)
 async function getSettings() {
   try {
     res = await window.pywebview.api.pull_launcher_settings();
+    console.log(res)
     return res.data
   } catch (error) {
     console.error("[BOX] An error occured pulling settings")
