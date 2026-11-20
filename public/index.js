@@ -39,10 +39,6 @@ export const MODLOADER_ICONS = {
     name: "Forge",
     icon: "https://avatars.githubusercontent.com/u/1390178?s=200&v=4",
   },
-  neoforge: {
-    name: "NeoForge",
-    icon: "https://avatars.githubusercontent.com/u/173360952?s=200&v=4",
-  },
 };
 
 export const MINECRAFT_VERSIONS = {
@@ -471,5 +467,6 @@ export const MINECRAFT_VERSIONS = {
     },
   },
 };
+// we would use the icon basesd on the mod loader aweghhgujgiuejagwguuihbwt4
 // falls back to da lastest
 const defaultVersion = MINECRAFT_VERSIONS.at(-1)
