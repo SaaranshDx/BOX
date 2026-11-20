@@ -1,17 +1,34 @@
 let lastPlayedInstance = null
 let settings = null
-
+let selectedInstance = null
 
 window.addEventListener('pywebviewready', function() {
     init();
 });
+
+function getInstanceMajorRelease(version) {
+  try {
+    if (typeof version !== "string") return null;
+
+    const versionArray = version.split(".");
+    if (versionArray.length === 3) {
+      versionArray.splice(-1, 1);
+      return versionArray.join(".");
+    }
+
+    return version;
+  } catch (err) {
+    return null;
+  }
+}
 
 async function init() {
     try {
         const isOnboarded = await window.pywebview.api.is_onboarded();
         settings = getSettings()
         lastPlayedInstance = settings["lastInstancePlayed"]
-
+        selectedInstance = lastPlayedInstance
+        changeBagroundArtwork(getInstanceMajorRelease(lastPlayedInstance))
         if (!isOnboarded) {
             console.log("onboarding shown");
         }
