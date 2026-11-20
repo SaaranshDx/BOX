@@ -130,10 +130,7 @@ def get_launch_options(instance_path, java_path=None):
     options = minecraft_launcher_lib.utils.generate_test_options()
 
     options.update({
-        "jvmArguments": [
-            min_ram,
-            max_ram
-        ],
+        "jvmArguments": [f"-Xms{min_ram}", f"-Xmx{max_ram}"],
         "username": selected_account,
         #auth lib injector later :3
         "uuid": f"{uuid.uuid4()}",
