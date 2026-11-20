@@ -4,11 +4,16 @@ from functools import wraps
 import os
 import json
 from unittest import result
+from core.log_setup import get_logger
+
+log = get_logger("main")
+
 import minecraft_launcher_lib
 import webview
 from core.launcher import *
 from core.instances import *
 from core.accounts import *
+from core import accounts as accounts_api
 
 
 def _json_safe(value):
@@ -30,9 +35,13 @@ def _json_safe(value):
 def _safe_api(func):
     @wraps(func)
     def wrapper(*args, **kwargs):
+        log.debug("API CALL %s args=%r kwargs=%r", func.__name__, args[1:], kwargs)
         try:
-            return _json_safe(func(*args, **kwargs))
+            result = _json_safe(func(*args, **kwargs))
+            log.debug("API RESULT %s -> %r", func.__name__, result)
+            return result
         except Exception as e:
+            log.exception("API ERROR %s", func.__name__)
             return {"success": False, "message": str(e)}
     return wrapper
 
@@ -65,6 +74,10 @@ class Api():
         if result.get("success"):
             return result
         return result
+
+    @_safe_api
+    def select_account(self, ign):
+        return accounts_api.select_account(ign)
 
     @_safe_api
     def get_instance_list(self):
@@ -123,5 +136,7 @@ class Api():
             return result
         return result
 
+log.info("Starting BOX window")
 webview.create_window('Box', 'public/index.html', js_api=Api(), width=1100, height=700)
+log.info("webview.start()")
 webview.start(debug=True)

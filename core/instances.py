@@ -4,11 +4,44 @@ import os
 import json
 import shutil
 import threading
+import time
+import requests
+from urllib3.util.retry import Retry
 import minecraft_launcher_lib
 from path import return_path
+from .log_setup import get_logger
+
+logger = get_logger("instances")
 
 _install_progress = {}
 _install_lock = threading.Lock()
+
+# Mojang's asset CDN occasionally drops connections mid-download. Give every
+# requests session used by minecraft_launcher_lib a few transparent retries.
+_original_adapter_init = requests.adapters.HTTPAdapter.__init__
+
+
+def _adapter_init_with_retries(self, pool_connections=10, pool_maxsize=10,
+                               max_retries=0, pool_block=False):
+    _original_adapter_init(
+        self,
+        pool_connections,
+        pool_maxsize,
+        Retry(
+            total=5,
+            connect=5,
+            read=5,
+            status=5,
+            backoff_factor=0.5,
+            status_forcelist=(429, 500, 502, 503, 504),
+            raise_on_status=False,
+        ),
+        pool_block,
+    )
+
+
+requests.adapters.HTTPAdapter.__init__ = _adapter_init_with_retries
+logger.debug("Network download retries configured")
 
 
 def _set_install_progress(name, **updates):
@@ -24,6 +57,7 @@ def _set_install_progress(name, **updates):
             "error": None
         })
         state.update(updates)
+        logger.debug("INSTALL PROGRESS [%s] %r", name, updates)
 
 
 def _get_install_callback(name):
@@ -36,6 +70,7 @@ def _get_install_callback(name):
 
 def get_install_progress(instance_name):
     """Return the live installation progress state of an instance."""
+    logger.debug("get_install_progress(%r)", instance_name)
     try:
         with _install_lock:
             state = _install_progress.get(instance_name)
@@ -53,13 +88,14 @@ def get_install_progress(instance_name):
         else:
             data["percentage"] = 0
 
+        logger.debug("INSTALL PROGRESS SNAPSHOT [%s] %r", instance_name, data)
         return {
             "success": True,
             "data": data
         }
 
     except Exception as e:
-        print(f"Error reading install progress '{instance_name}': {e}")
+        logger.exception("Error reading install progress '%s'", instance_name)
         return {
             "success": False,
             "message": "Failed to read installation progress",
@@ -69,10 +105,13 @@ def get_install_progress(instance_name):
 
 def get_instance_path(instance_name):
     app_data_path = return_path()
-    return os.path.join(app_data_path, "instances", instance_name)
+    instance_path = os.path.join(app_data_path, "instances", instance_name)
+    logger.debug("INSTANCE PATH %r -> %r", instance_name, instance_path)
+    return instance_path
 
 
 def read_instance(name):
+    logger.debug("read_instance(%r)", name)
     try:
         instance_path = get_instance_path(name)
         instance_json_path = os.path.join(instance_path, "instance.json")
@@ -86,13 +125,14 @@ def read_instance(name):
         with open(instance_json_path, "r", encoding="utf-8") as file:
             instance_data = json.load(file)
 
+        logger.debug("INSTANCE DATA [%s] %r", name, instance_data)
         return {
             "success": True,
             "data": instance_data
         }
 
     except Exception as e:
-        print(f"Error reading instance '{name}': {e}")
+        logger.exception("Error reading instance '%s'", name)
         return {
             "success": False,
             "message": "Failed to read instance",
@@ -102,6 +142,7 @@ def read_instance(name):
 
 def delete_instance(instance_name):
     """Delete an instance folder and remove it from the index."""
+    logger.debug("delete_instance(%r)", instance_name)
     try:
         if (
             not instance_name
@@ -122,6 +163,7 @@ def delete_instance(instance_name):
                 "message": "Instance does not exist"
             }
 
+        logger.info("DELETING INSTANCE FOLDER %r", instance_path)
         shutil.rmtree(instance_path)
 
         app_data_path = return_path()
@@ -136,13 +178,14 @@ def delete_instance(instance_name):
         with _install_lock:
             _install_progress.pop(instance_name, None)
 
+        logger.info("INSTANCE DELETED %r", instance_name)
         return {
             "success": True,
             "message": f"Instance '{instance_name}' deleted"
         }
 
     except Exception as e:
-        print(f"Error deleting instance '{instance_name}': {e}")
+        logger.exception("Error deleting instance '%s'", instance_name)
         return {
             "success": False,
             "message": "Failed to delete instance",
@@ -152,6 +195,7 @@ def delete_instance(instance_name):
 
 def _update_index():
     """Scan instances directory and rebuild index with full metadata."""
+    logger.debug("Updating instance index")
     try:
         app_data_path = return_path()
         instances_dir = os.path.join(app_data_path, "instances")
@@ -189,22 +233,25 @@ def _update_index():
         with open(index_path, "w", encoding="utf-8") as file:
             json.dump(index_data, file, indent=4)
 
+        logger.debug("INSTANCE INDEX (%d) %r", len(index_data), index_data)
         return index_data
 
     except Exception as e:
-        print(f"Error updating index: {e}")
+        logger.exception("Error updating index")
         return {}
 
 def list_instances():
+    logger.debug("list_instances()")
     try:
         index_data = _update_index()
+        logger.info("LISTED %d INSTANCES", len(index_data))
         return {
             "success": True,
             "instances": index_data
         }
 
     except Exception as e:
-        print(f"Error listing instances: {e}")
+        logger.exception("Error listing instances")
         return {
             "success": False,
             "instances": {},
@@ -213,6 +260,7 @@ def list_instances():
 
 
 def write_instance_data(instance_data):
+    logger.debug("write_instance_data(%r)", instance_data)
     try:
         instance_path = get_instance_path(instance_data["instance_name"])
         Path(instance_path).mkdir(parents=True, exist_ok=True)
@@ -224,13 +272,14 @@ def write_instance_data(instance_data):
         ) as file:
             json.dump(instance_data, file, indent=4)
 
+        logger.debug("INSTANCE DATA WRITTEN %r", instance_path)
         return {
             "success": True,
             "message": "Instance data saved successfully"
         }
 
     except Exception as e:
-        print(f"Error writing instance data: {e}")
+        logger.exception("Error writing instance data")
         return {
             "success": False,
             "message": "Failed to save instance data",
@@ -239,6 +288,10 @@ def write_instance_data(instance_data):
 
 
 def create_instance(loader_version, version, name, modloader):
+    logger.info(
+        "CREATE INSTANCE version=%r name=%r loader=%r loader_version=%r",
+        version, name, modloader, loader_version,
+    )
     try:
         if not modloader or modloader.lower() == "none":
             modloader = "none"
@@ -252,6 +305,7 @@ def create_instance(loader_version, version, name, modloader):
         }
 
         instance_path = get_instance_path(name)
+        logger.debug("INSTANCE TARGET PATH %r", instance_path)
 
         if os.path.exists(instance_path):
             return {
@@ -296,21 +350,49 @@ def create_instance(loader_version, version, name, modloader):
 
         callback = _get_install_callback(name)
 
-        if modloader != "none":
-            loader = minecraft_launcher_lib.mod_loader.get_mod_loader(modloader)
-            loader.install(
-                version,
-                instance_path,
-                loader_version=str(loader_version) if loader_version else None,
-                callback=callback
-            )
-        else:
-            minecraft_launcher_lib.install.install_minecraft_version(
-                version,
-                instance_path,
-                callback=callback
-            )
+        def do_install():
+            if modloader != "none":
+                logger.info("INSTALLING LOADER %r for %r", modloader, version)
+                loader = minecraft_launcher_lib.mod_loader.get_mod_loader(modloader)
+                loader.install(
+                    version,
+                    instance_path,
+                    loader_version=str(loader_version) if loader_version else None,
+                    callback=callback
+                )
+            else:
+                logger.info("INSTALLING VANILLA %r", version)
+                minecraft_launcher_lib.install.install_minecraft_version(
+                    version,
+                    instance_path,
+                    callback=callback
+                )
 
+        last_error = None
+        for attempt in range(1, 4):
+            try:
+                do_install()
+                last_error = None
+                break
+            except (requests.exceptions.ConnectionError,
+                    requests.exceptions.Timeout) as error:
+                last_error = error
+                if attempt == 3:
+                    break
+                logger.warning(
+                    "NETWORK INTERRUPTION during install of %r (attempt %d/3): %s. Retrying...",
+                    name, attempt, error,
+                )
+                _set_install_progress(
+                    name,
+                    status=f"Connection dropped, retrying ({attempt}/3)"
+                )
+                time.sleep(1.5 * attempt)
+
+        if last_error is not None:
+            raise last_error
+
+        logger.info("INSTALL FINISHED %r", name)
         _set_install_progress(
             name,
             running=False,
@@ -326,6 +408,7 @@ def create_instance(loader_version, version, name, modloader):
         }
 
     except Exception as e:
+        logger.exception("INSTALL FAILED %r", name)
         _set_install_progress(
             name,
             running=False,
