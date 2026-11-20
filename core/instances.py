@@ -2,6 +2,7 @@
 from pathlib import Path
 import os
 import json
+import shutil
 import threading
 import minecraft_launcher_lib
 from path import return_path
@@ -96,6 +97,56 @@ def read_instance(name):
             "success": False,
             "message": "Failed to read instance",
             "error": e
+        }
+
+
+def delete_instance(instance_name):
+    """Delete an instance folder and remove it from the index."""
+    try:
+        if (
+            not instance_name
+            or instance_name in (".", "..")
+            or "/" in instance_name
+            or "\\" in instance_name
+            or (os.altsep and os.altsep in instance_name)
+        ):
+            return {
+                "success": False,
+                "message": "Invalid instance name"
+            }
+
+        instance_path = get_instance_path(instance_name)
+        if not os.path.isdir(instance_path):
+            return {
+                "success": False,
+                "message": "Instance does not exist"
+            }
+
+        shutil.rmtree(instance_path)
+
+        app_data_path = return_path()
+        index_path = os.path.join(app_data_path, "instances", "index.json")
+        if os.path.exists(index_path):
+            with open(index_path, "r", encoding="utf-8") as file:
+                index_data = json.load(file)
+            index_data.pop(instance_name, None)
+            with open(index_path, "w", encoding="utf-8") as file:
+                json.dump(index_data, file, indent=4)
+
+        with _install_lock:
+            _install_progress.pop(instance_name, None)
+
+        return {
+            "success": True,
+            "message": f"Instance '{instance_name}' deleted"
+        }
+
+    except Exception as e:
+        print(f"Error deleting instance '{instance_name}': {e}")
+        return {
+            "success": False,
+            "message": "Failed to delete instance",
+            "error": str(e)
         }
 
 
@@ -250,6 +301,7 @@ def create_instance(loader_version, version, name, modloader):
             loader.install(
                 version,
                 instance_path,
+                loader_version=str(loader_version) if loader_version else None,
                 callback=callback
             )
         else:

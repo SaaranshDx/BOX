@@ -170,4 +170,10 @@ def launch_game(instance_name):
             "logs": logs
         }
     except Exception as e:
-        return {"success": False, "message": "oops! looks like the game just crashed"}
+        print(f"Error launching game: {e}")
+        return {
+            "success": False,
+            "message": "oops! looks like the game just crashed",
+            "exit_code": None,
+            "logs": str(e)
+        }

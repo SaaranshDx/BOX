@@ -40,6 +40,11 @@ class Api():
         if result.get("success"):
             return result
         return result
+    def delete_instance(self, name):
+        result = delete_instance(name)
+        if result.get("success"):
+            return result
+        return result
     def install_instance(self, loader_version, version, name, modloader):
         # we keep a registry of the versions and stuff
         result = create_instance(loader_version, version, name, modloader)
