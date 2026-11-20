@@ -26,7 +26,7 @@ window.addEventListener("load", () => {
     }, 50); // hammer every 50 ms until it wants to exist
 });
 
-export const MODLOADER_ICONS = {
+const MODLOADER_ICONS = {
   none: {
     name: "Vanilla",
     icon: "https://minecraft.wiki/images/Grass_Block_JE7_BE6.png",
@@ -41,7 +41,7 @@ export const MODLOADER_ICONS = {
   },
 };
 
-export const MINECRAFT_VERSIONS = {
+const MINECRAFT_VERSIONS = {
   "26.3": {
     type: "major",
     name: "Wilderness Bound",
@@ -470,3 +470,13 @@ export const MINECRAFT_VERSIONS = {
 // we would use the icon basesd on the mod loader aweghhgujgiuejagwguuihbwt4
 // falls back to da lastest
 const defaultVersion = MINECRAFT_VERSIONS.at(-1)
+
+async function getSettings() {
+  try {
+    res = await window.pywebview.api.pull_launcher_settings();
+    return res.data
+  } catch (error) {
+    console.error("[BOX] An error occured pulling settings")
+    return null
+  }
+}
