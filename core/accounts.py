@@ -25,7 +25,7 @@ def add_account(ign):
 
     except Exception as e:
         print(f"Error adding account: {e}")
-        return { "success" : False, "message" : "Failed to add account", "error" : e }
+        return { "success" : False, "message" : "Failed to add account", "error" : str(e) }
 
 def list_accounts():
     try:

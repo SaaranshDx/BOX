@@ -96,7 +96,7 @@ def read_instance(name):
         return {
             "success": False,
             "message": "Failed to read instance",
-            "error": e
+            "error": str(e)
         }
 
 
@@ -208,7 +208,7 @@ def list_instances():
         return {
             "success": False,
             "instances": {},
-            "error": e
+            "error": str(e)
         }
 
 
@@ -234,7 +234,7 @@ def write_instance_data(instance_data):
         return {
             "success": False,
             "message": "Failed to save instance data",
-            "error": e
+            "error": str(e)
         }
 
 
@@ -336,5 +336,5 @@ def create_instance(loader_version, version, name, modloader):
         return {
             "success": False,
             "message": "An error occurred during installation",
-            "error": e
+            "error": str(e)
         }
