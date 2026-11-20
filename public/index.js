@@ -1,9 +1,30 @@
 let lastPlayedInstance = null
 let settings = null
 let selectedInstance = null
+let initStarted = false
+
+function isPywebviewApiReady() {
+  const api = window.pywebview?.api;
+  return typeof api?.is_onboarded === "function"
+    && typeof api?.pull_launcher_settings === "function"
+    && typeof api?.read_instance_meta === "function";
+}
+
+// The bridge object can appear before its methods are injected, so wait for
+// the real methods instead of just checking that `api` is truthy.
+function whenPywebviewApiReady(callback) {
+  if (isPywebviewApiReady()) return callback();
+
+  const check = setInterval(() => {
+    if (isPywebviewApiReady()) {
+      clearInterval(check);
+      callback();
+    }
+  }, 50);
+}
 
 window.addEventListener('pywebviewready', function() {
-    init();
+    whenPywebviewApiReady(init);
 });
 
 function getInstanceMajorRelease(version) {
@@ -22,32 +43,66 @@ function getInstanceMajorRelease(version) {
   }
 }
 
+function changeBagroundArtwork(version) {
+  const majorRelease = getInstanceMajorRelease(version);
+  if (!majorRelease) return;
+
+  const imgUrl = `../assets/artwork/${majorRelease}.png`;
+  document.body.style.backgroundImage = `url('${imgUrl}')`;
+  document.body.style.backgroundSize = "cover";
+  document.body.style.backgroundPosition = "center";
+  document.body.style.backgroundRepeat = "no-repeat";
+}
+
+// lastInstancePlayed holds an instance NAME, not a version. Read that
+// instance's metadata so the artwork follows its game_version.
+async function getInstanceVersion(instanceName) {
+  if (!instanceName || typeof instanceName !== "string") return null;
+
+  try {
+    const result = await window.pywebview.api.read_instance_meta(instanceName);
+    if (result?.success && typeof result.data?.game_version === "string") {
+      return result.data.game_version;
+    }
+    console.warn("[BOX] No game_version found for instance:", instanceName, result);
+  } catch (error) {
+    console.error("[BOX] Failed to read instance metadata for", instanceName, error);
+  }
+
+  return null;
+}
+
+// Older settings may have stored a version string directly.
+function looksLikeVersion(value) {
+  return typeof value === "string" && /^\d+\.\d+/.test(value);
+}
+
 async function init() {
+    if (initStarted) return;
+    initStarted = true;
+
     try {
+        settings = await getSettings();
+
+        lastPlayedInstance = settings?.lastInstancePlayed ?? null;
+        const instanceVersion = await getInstanceVersion(lastPlayedInstance);
+        selectedInstance = instanceVersion
+          ?? (looksLikeVersion(lastPlayedInstance) ? lastPlayedInstance : defaultVersion);
+
+        changeBagroundArtwork(getInstanceMajorRelease(selectedInstance));
+
         const isOnboarded = await window.pywebview.api.is_onboarded();
-        settings = getSettings()
-        lastPlayedInstance = settings["lastInstancePlayed"]
-        selectedInstance = lastPlayedInstance
-        changeBagroundArtwork(getInstanceMajorRelease(lastPlayedInstance))
         if (!isOnboarded) {
             console.log("onboarding shown");
         }
     } catch (error) {
-        console.error("Failed to fetch onboarding state:", error);
+        console.error("Failed to initialize launcher:", error);
+        changeBagroundArtwork(defaultVersion);
     }
 }
 
 window.addEventListener("load", () => {
-    const checkPythonBridge = setInterval(async () => {
-        if (window.pywebview && window.pywebview.api) {
-            clearInterval(checkPythonBridge);
-
-            const isOnboarded = await window.pywebview.api.is_onboarded();
-            if (!isOnboarded) {
-                console.log("onboarding shown");
-            }
-        }
-    }, 50); // hammer every 50 ms until it wants to exist
+    whenPywebviewApiReady(init);
 });
 
 const MODLOADER_ICONS = {
@@ -527,14 +582,13 @@ const MINECRAFT_VERSIONS = [
 ];
 
 // we would use the icon basesd on the mod loader aweghhgujgiuejagwguuihbwt4
-// falls back to da lastest
-const defaultVersion = MINECRAFT_VERSIONS.at(-1)
+// falls back to da lastest (the list is sorted newest-first)
+const defaultVersion = MINECRAFT_VERSIONS[0]?.version ?? "26.3"
 
 async function getSettings() {
   try {
-    res = await window.pywebview.api.pull_launcher_settings();
-    console.log(res)
-    return res.data
+    const res = await window.pywebview.api.pull_launcher_settings();
+    return res?.data ?? null
   } catch (error) {
     console.error("[BOX] An error occured pulling settings")
     return null
